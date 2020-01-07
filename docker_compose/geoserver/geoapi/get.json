@@ -1,0 +1,14 @@
+{
+    "layers": {
+      "layer": [
+        {
+          "name": "tiger:giant_polygon",
+          "href": "http:\/\/localhost:8080\/geoserver\/rest\/layers\/tiger%3Agiant_polygon.json"
+        },
+        {
+          "name": "sf:bugsites",
+          "href": "http:\/\/localhost:8080\/geoserver\/rest\/layers\/sf%3Abugsites.json"
+        }
+      ]
+    }
+  }

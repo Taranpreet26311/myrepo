@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for app in /usr/share/applications/*.desktop; do echo "${app:24:-8}"; done
+
+
