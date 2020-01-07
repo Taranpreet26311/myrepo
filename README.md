@@ -1,3 +1,3 @@
 # myrepo
 
-#This is a test version 1.0
+#This is a my personal repo 
