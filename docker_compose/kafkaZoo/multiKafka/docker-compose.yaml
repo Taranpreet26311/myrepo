@@ -1,82 +1,37 @@
-zookeeper1:
-    image: digitalwonderland/zookeeper
-    container_name: zookeeper1
-    environment:
-        - ZOOKEEPER_ID=1
-        - ZOOKEEPER_SERVER_1=10.15.0.8
-        - ZOOKEEPER_SERVER_2=10.15.0.9
-        - ZOOKEEPER_SERVER_3=10.15.0.13
-        - ZOOKEEPER_CLIENT_PORT=2181
+version: '2'
+
+services:
+
+  zookeeper:
+    image: wurstmeister/zookeeper
     ports:
-        - 2181:2181
-        - 2888:2888
-        - 3888:3888
+    - "2181:2181"
 
-
-zookeeper2:
-    image: digitalwonderland/zookeeper
-    container_name: zookeeper2
-    environment:
-        - ZOOKEEPER_ID=2
-        - ZOOKEEPER_SERVER_1=10.15.0.8
-        - ZOOKEEPER_SERVER_2=10.15.0.9
-        - ZOOKEEPER_SERVER_3=10.15.0.13
-        - ZOOKEEPER_CLIENT_PORT=2181
-    ports:
-        - 2181:2181
-        - 2888:2888
-        - 3888:3888
-
-
-zookeeper3:
-    image: digitalwonderland/zookeeper
-    container_name: zookeeper3
-    environment:
-        - ZOOKEEPER_ID=3
-        - ZOOKEEPER_SERVER_1=10.15.0.8
-        - ZOOKEEPER_SERVER_2=10.15.0.9
-        - ZOOKEEPER_SERVER_3=10.15.0.13
-        - ZOOKEEPER_CLIENT_PORT=2181
-    ports:
-        - 2181:2181
-        - 2888:2888
-        - 3888:3888
-
-
-kafka1:
+  kafka1:
     image: wurstmeister/kafka
-    container_name: kafka1
-    environment:
-        - KAFKA_ADVERTISED_PORT=9092
-        - KAFKA_ADVERTISED_HOST_NAME=10.15.0.8
-        - KAFKA_ZOOKEEPER_CONNECT=10.15.0.8:2181,10.15.0.9:2181,10.15.0.13:2181
-        - KAFKA_LOG_RETENTION_HOURS=4
-        - KAFKA_LOG_RETENTION_BYTES=1000000000
     ports:
-        - 9092:9092
-
-
-kafka2:
+    - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.29.229:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  kafka2:
     image: wurstmeister/kafka
-    container_name: kafka2
-    environment:
-        - KAFKA_ADVERTISED_PORT=9092
-        - KAFKA_ADVERTISED_HOST_NAME=10.15.0.9
-        - KAFKA_ZOOKEEPER_CONNECT=10.15.0.8:2181,10.15.0.9:2181,10.15.0.13:2181
-        - KAFKA_LOG_RETENTION_HOURS=4
-        - KAFKA_LOG_RETENTION_BYTES=1000000000
     ports:
-        - 9092:9092
+    - "9093:9092"
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.29.229:9093
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
-
-kafka3:
+  kafka3:
     image: wurstmeister/kafka
-    container_name: kafka3
-    environment:
-        - KAFKA_ADVERTISED_PORT=9092
-        - KAFKA_ADVERTISED_HOST_NAME=10.15.0.13
-        - KAFKA_ZOOKEEPER_CONNECT=10.15.0.8:2181,10.15.0.9:2181,10.15.0.13:2181
-        - KAFKA_LOG_RETENTION_HOURS=4
-        - KAFKA_LOG_RETENTION_BYTES=1000000000
     ports:
-        - 9092:9092
+    - "9094:9092"
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.29.229:9094
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
