@@ -1,12 +1,16 @@
 from kafka import KafkaConsumer
 import sys
-bootstrap_servers = ['localhost:9092']
 topicName = 'test'
-consumer = KafkaConsumer (topicName, group_id = 'group1',bootstrap_servers = bootstrap_servers,
-auto_offset_reset = 'earliest')
+consumer = KafkaConsumer(topicName,
+                     bootstrap_servers=['localhost:9094'],
+                     group_id=None,
+                     auto_offset_reset='earliest')
 
-try:
-    for message in consumer:
-        print ("%s:%d:%d: key=%s value=%s" % (message.topic, message.partition,message.offset, message.key,message.value))
-except KeyboardInterrupt:
-    sys.exit()
+print ("Consuming messages from the given topic")
+for message in consumer:
+    print ("Message"), message
+    if message is not None:
+        print (message.offset)
+        print(message.value)
+
+print ("Quit")
