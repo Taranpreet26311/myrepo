@@ -1,0 +1,40 @@
+version: '2'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+     - "2181:2181"
+  kafka1:
+    image: wurstmeister/kafka
+    ports:
+     - "9092:9092"
+     - "29094:29094"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka1:29094,OUTSIDE://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_LISTENERS: INSIDE://kafka1:29094,OUTSIDE://0.0.0.0:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  
+  kafka2:
+    image: wurstmeister/kafka
+    ports:
+     - "9093:9093"
+     - "29095:29095"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka2:29095,OUTSIDE://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_LISTENERS: INSIDE://kafka2:29095,OUTSIDE://0.0.0.0:9093
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  kafka3:
+    image: wurstmeister/kafka
+    ports:
+     - "9094:9094"
+     - "29096:29096"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka3:29096,OUTSIDE://localhost:9094
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_LISTENERS: INSIDE://kafka3:29096,OUTSIDE://0.0.0.0:9094
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181

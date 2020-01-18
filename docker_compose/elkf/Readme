@@ -1,1 +1,0 @@
-This is a simple docker compose file that creates a 3 node elasticluster along with a logstash and Kibana container, and sends logs using Filebeat
